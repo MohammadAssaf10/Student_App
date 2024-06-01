@@ -5,31 +5,44 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 
-@Entity
-@Table
+@Entity(name = "Student")
+@Table(name = "student",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "student_email_unique",
+                        columnNames = "email"
+                )
+        }
+)
 public class Student {
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
+    @Column(
+            name = "id",
+            updatable = false
+    )
     private Long id;
+    @Column(
+            name = "name",
+            nullable = false
+    )
     private String name;
+    @Column(
+            name = "email",
+            nullable = false
+    )
     private String email;
+    @Column(
+            name = "date_of_birthday",
+            nullable = false
+    )
     private LocalDate dateOfBirthday;
     @Transient
     private Integer age;
 
     public Student() {
-    }
-
-    public Student(Long id,
-                   String name,
-                   String email,
-                   LocalDate dateOfBirthday) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.dateOfBirthday = dateOfBirthday;
     }
 
     public Student(String name, String email, LocalDate dateOfBirthday) {
@@ -63,7 +76,7 @@ public class Student {
     }
 
     public Integer getAge() {
-        return Period.between(this.dateOfBirthday,LocalDate.now()).getYears();
+        return Period.between(this.dateOfBirthday, LocalDate.now()).getYears();
     }
 
     public void setAge(Integer age) {
