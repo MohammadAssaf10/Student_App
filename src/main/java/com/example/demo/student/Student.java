@@ -1,6 +1,8 @@
 package com.example.demo.student;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -38,7 +40,10 @@ public class Student {
             name = "date_of_birthday",
             nullable = false
     )
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirthday;
+
     @Transient
     private Integer age;
 

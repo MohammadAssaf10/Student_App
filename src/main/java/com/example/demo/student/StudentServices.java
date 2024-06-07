@@ -12,7 +12,11 @@ import java.util.Optional;
 @Service
 public class StudentServices {
     @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
+
+    public StudentServices(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
 
     public List<Student> getStudents() {
@@ -40,10 +44,10 @@ public class StudentServices {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalStateException(
                         "Student with id " + studentId + " doesn't exist"));
-        if(name != null && name.length() > 0 && !Objects.equals(student.getName(),name)){
+        if(name != null && !name.isEmpty() && !Objects.equals(student.getName(),name)){
             student.setName(name);
         }
-        if(email != null && email.length() > 0 && !Objects.equals(student.getEmail(),email)){
+        if(email != null && !email.isEmpty() && !Objects.equals(student.getEmail(),email)){
             Optional<Student> studentOptional = studentRepository.findByEmail(email);
             if(studentOptional.isPresent()){
                 throw new IllegalStateException("Email already exist");
