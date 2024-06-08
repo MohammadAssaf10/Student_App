@@ -1,6 +1,8 @@
-package com.example.demo.book;
+package com.example.demo.controllers;
 
-import com.fasterxml.jackson.annotation.JsonView;
+import com.example.demo.dto.BookDTO;
+import com.example.demo.services.BookService;
+import com.example.demo.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +21,11 @@ public class BookController {
         return bookService.getBooks();
     }
 
-    @JsonView(Book.class)
+    @GetMapping("/student/{studentId}")
+    public List<BookDTO> getStudentBooks(@PathVariable Long studentId) {
+        return bookService.getStudentBooks(studentId);
+    }
+
     @PostMapping()
     public void addNewBook(@RequestBody Book book) {
         bookService.addNewBook(book);

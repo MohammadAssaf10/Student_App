@@ -1,5 +1,6 @@
-package com.example.demo.book;
+package com.example.demo.repositories;
 
+import com.example.demo.entities.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.NonNull;
@@ -16,5 +17,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(value = "SELECT * FROM book WHERE name = :bookName and student_id = :studentId", nativeQuery = true)
     Optional<Book> findByNameAndStudentId(String bookName, Long studentId);
+
+
+    @Query(value = "SELECT * FROM book WHERE student_id = :studentId", nativeQuery = true)
+    List<Book> findByStudentId(Long studentId);
 
 }

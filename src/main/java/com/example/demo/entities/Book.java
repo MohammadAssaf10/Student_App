@@ -1,7 +1,6 @@
-package com.example.demo.book;
+package com.example.demo.entities;
 
 
-import com.example.demo.student.Student;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -101,3 +100,6 @@ public class Book {
                 '}';
     }
 }
+
+
+
