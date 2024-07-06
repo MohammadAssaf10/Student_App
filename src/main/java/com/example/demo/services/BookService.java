@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class BookService {
     @Autowired
-    private  BookRepository bookRepository;
+    private BookRepository bookRepository;
     @Autowired
     private StudentRepository studentRepository;
 
@@ -25,14 +25,15 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public void addNewBook(Book book) {
-        Student optionalStudent = studentRepository.findById(book.getStudent().getId())
+    public void addNewBook(BookDTO bookDTO) {
+        Student optionalStudent = studentRepository.findById(bookDTO.getId())
                 .orElseThrow(() -> new IllegalStateException(
-                        "Student with id " + book.getStudent().getId() + " doesn't exist"));
-        Optional<Book> optionalBook = bookRepository.findByNameAndStudentId(book.getName(), book.getStudent().getId());
+                        "Student with id " + bookDTO.getId() + " doesn't exist"));
+        Optional<Book> optionalBook = bookRepository.findByNameAndStudentId(bookDTO.getName(), bookDTO.getId());
         if (optionalBook.isPresent()) {
-            throw new IllegalStateException(optionalStudent.getName() + " student have " + book.getName() + " book");
+            throw new IllegalStateException(optionalStudent.getName() + " student have " + bookDTO.getName() + " book");
         }
+        Book book = new Book(bookDTO.getName(), optionalStudent);
         bookRepository.save(book);
     }
 
@@ -50,5 +51,13 @@ public class BookService {
 
     private BookDTO convertToDTO(Book book) {
         return new BookDTO(book.getId(), book.getName());
+    }
+
+    public void deleteBook(Long bookId) {
+        boolean isBookExist = bookRepository.existsById(bookId);
+        if (!isBookExist) {
+            throw new IllegalStateException("Book with id " + bookId + " doesn't exist");
+        }
+        bookRepository.deleteById(bookId);
     }
 }

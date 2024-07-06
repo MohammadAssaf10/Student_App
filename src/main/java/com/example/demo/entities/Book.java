@@ -52,9 +52,9 @@ public class Book {
     public Book() {
     }
 
-    public Book(String name, Date createdAt) {
-        this.createdAt = createdAt;
+    public Book(String name,Student student) {
         this.name = name;
+        this.student = student;
     }
 
     public Long getId() {
@@ -69,9 +69,8 @@ public class Book {
         return student;
     }
 
-    public void setStudentId(Long studentId) {
-        this.student = new Student();
-        this.student.setId(studentId);
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public String getName() {

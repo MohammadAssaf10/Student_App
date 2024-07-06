@@ -27,7 +27,13 @@ public class BookController {
     }
 
     @PostMapping()
-    public void addNewBook(@RequestBody Book book) {
+    public void addNewBook(@RequestBody BookDTO book) {
         bookService.addNewBook(book);
+    }
+
+
+    @DeleteMapping(path = "{bookId}")
+    public void deleteBook(@PathVariable("bookId") Long bookId){
+        bookService.deleteBook(bookId);
     }
 }
