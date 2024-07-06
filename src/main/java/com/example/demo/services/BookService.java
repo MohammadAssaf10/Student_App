@@ -16,13 +16,9 @@ import java.util.Optional;
 @Service
 public class BookService {
     @Autowired
-    private final BookRepository bookRepository;
-    private final StudentRepository studentRepository;
-
-    public BookService(BookRepository bookRepository, StudentRepository studentRepository) {
-        this.bookRepository = bookRepository;
-        this.studentRepository = studentRepository;
-    }
+    private  BookRepository bookRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
 
     public List<Book> getBooks() {
@@ -41,6 +37,9 @@ public class BookService {
     }
 
     public List<BookDTO> getStudentBooks(Long studentId) {
+        studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalStateException(
+                        "Student with id " + studentId + " doesn't exist"));
         List<BookDTO> studentBooksList = new ArrayList<>();
         List<Book> booksList = bookRepository.findByStudentId(studentId);
         for (Book book : booksList) {

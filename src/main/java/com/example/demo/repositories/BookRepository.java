@@ -12,14 +12,14 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @NonNull
     @Override
-    @Query(value = "SELECT * FROM book ORDER BY id", nativeQuery = true)
+    @Query(value = "SELECT * FROM books ORDER BY id", nativeQuery = true)
     List<Book> findAll();
 
-    @Query(value = "SELECT * FROM book WHERE name = :bookName and student_id = :studentId", nativeQuery = true)
+    @Query(value = "SELECT * FROM books WHERE name = :bookName and student_id = :studentId", nativeQuery = true)
     Optional<Book> findByNameAndStudentId(String bookName, Long studentId);
 
 
-    @Query(value = "SELECT * FROM book WHERE student_id = :studentId", nativeQuery = true)
+    @Query(value = "SELECT * FROM books WHERE student_id = :studentId", nativeQuery = true)
     List<Book> findByStudentId(Long studentId);
 
 }

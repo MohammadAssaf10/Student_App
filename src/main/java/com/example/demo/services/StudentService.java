@@ -12,11 +12,11 @@ import java.util.Optional;
 
 
 @Service
-public class StudentServices {
+public class StudentService {
     @Autowired
     private final StudentRepository studentRepository;
 
-    public StudentServices(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 

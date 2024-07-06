@@ -2,7 +2,7 @@ package com.example.demo.controllers;
 
 
 import com.example.demo.entities.Student;
-import com.example.demo.services.StudentServices;
+import com.example.demo.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class StudentController {
 
     @Autowired
-    private StudentServices studentServices;
+    private StudentService studentServices;
 
     @GetMapping
     public List<Student> getStudents() {
