@@ -42,4 +42,11 @@ public class StudentIdCardService {
         studentIdCardRepository.save(studentIdCard);
     }
 
+    public void deleteStudentIdCard(Long studentIdCardId) {
+        boolean isStudentIdCardExist = studentIdCardRepository.existsById(studentIdCardId);
+        if (!isStudentIdCardExist) {
+            throw new IllegalStateException("Student card with id " + studentIdCardId + " doesn't exist");
+        }
+        studentIdCardRepository.deleteCardById(studentIdCardId);
+    }
 }

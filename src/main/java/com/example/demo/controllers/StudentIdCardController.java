@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 
 import com.example.demo.dto.StudentIdCardDTO;
-import com.example.demo.entities.Student;
 import com.example.demo.entities.StudentIdCard;
 import com.example.demo.services.StudentIdCardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,12 @@ public class StudentIdCardController {
     }
 
     @PostMapping(value = "/byStudentId")
-    public void addNewStudentIdCardByStudentId(@RequestBody StudentIdCardDTO studentIdCardDTO){
+    public void addNewByStudentId(@RequestBody StudentIdCardDTO studentIdCardDTO){
         studentIdCardService.addNewByStudentId(studentIdCardDTO);
+    }
+
+    @DeleteMapping(path = "{studentIdCardId}")
+    public void deleteStudentIdCard(@PathVariable("studentIdCardId") Long studentIdCardId){
+        studentIdCardService.deleteStudentIdCard(studentIdCardId);
     }
 }
